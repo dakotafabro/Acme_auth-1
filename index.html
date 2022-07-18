@@ -68,8 +68,10 @@
           this.setState({ auth: {} });
         }
 
-        getNotes = async (id) => {
-          const notes = await axios.get(`/api/users/${id}/notes`);
+        getNotes = async () => {
+          const notes = await axios.get(`/api/users/notes`, {
+            headers: { authorization: window.localStorage.getItem("token") },
+          });
           this.setState({ notes: notes.data });
         };
 
@@ -82,7 +84,7 @@
               },
             });
             this.setState({ auth: response.data });
-            this.getNotes(response.data.id);
+            this.getNotes();
           }
         }
         componentDidMount() {

@@ -27,7 +27,6 @@ User.byToken = async (token) => {
   try {
     const verifiedToken = await jwt.verify(token, process.env.JWT);
     const user = await User.findByPk(verifiedToken.userId);
-    console.log(verifiedToken);
     if (user) {
       return user;
     }
@@ -55,7 +54,6 @@ User.authenticate = async ({ username, password }) => {
       },
       process.env.JWT
     );
-    console.log(token);
     return token;
   }
   error.status = 401;
